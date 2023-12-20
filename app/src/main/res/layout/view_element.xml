@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAutofill="noExcludeDescendants"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+  <TextView
+      android:id="@+id/type_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:duplicateParentState="true"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="type name" />
+
+  <TextView
+      android:id="@+id/weight_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:labelFor="@id/weight_edit"
+      android:text="Weight:"
+      app:layout_constraintBaseline_toBaselineOf="@id/weight_edit"
+      app:layout_constraintStart_toStartOf="@id/type_text" />
+
+  <EditText
+      android:id="@+id/weight_edit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:duplicateParentState="true"
+      android:ems="3"
+      android:inputType="number"
+      android:minHeight="48dp"
+      android:selectAllOnFocus="true"
+      app:layout_constraintStart_toEndOf="@id/weight_label"
+      app:layout_constraintTop_toBottomOf="@id/type_text" />
+
+  <TextView
+      android:id="@+id/achieved_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:labelFor="@id/achieved_edit"
+      android:text="Achieved:"
+      app:layout_constraintBaseline_toBaselineOf="@id/achieved_edit"
+      app:layout_constraintStart_toEndOf="@id/weight_edit" />
+
+  <EditText
+      android:id="@+id/achieved_edit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:duplicateParentState="true"
+      android:ems="3"
+      android:inputType="number"
+      android:minHeight="48dp"
+      android:selectAllOnFocus="true"
+      app:layout_constraintStart_toEndOf="@id/achieved_label"
+      app:layout_constraintTop_toTopOf="@id/weight_edit" />
+</merge>

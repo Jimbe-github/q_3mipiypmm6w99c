@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAutofill="noExcludeDescendants"
+    android:padding="8dp">
+
+  <TextView
+      android:id="@+id/subject_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:labelFor="@id/subject_edit"
+      android:text="Subject:"
+      app:layout_constraintBaseline_toBaselineOf="@id/subject_edit"
+      app:layout_constraintStart_toStartOf="parent" />
+  <EditText
+      android:id="@+id/subject_edit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:ems="12"
+      android:inputType="text"
+      android:minHeight="48dp"
+      app:layout_constraintStart_toEndOf="@id/subject_label"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <CheckBox
+      android:id="@+id/check_1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/element_1" />
+  <com.teratail.q_3mipiypmm6w99c.ElementView
+      android:id="@+id/element_1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      app:layout_constraintStart_toEndOf="@id/check_1"
+      app:layout_constraintTop_toBottomOf="@id/subject_edit" />
+
+  <CheckBox
+      android:id="@+id/check_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/element_2" />
+  <com.teratail.q_3mipiypmm6w99c.ElementView
+      android:id="@+id/element_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="@id/element_1"
+      app:layout_constraintTop_toBottomOf="@id/element_1" />
+
+  <CheckBox
+      android:id="@+id/check_3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/element_3" />
+  <com.teratail.q_3mipiypmm6w99c.ElementView
+      android:id="@+id/element_3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="@id/element_2"
+      app:layout_constraintTop_toBottomOf="@id/element_2" />
+
+  <CheckBox
+      android:id="@+id/check_4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/element_4" />
+  <com.teratail.q_3mipiypmm6w99c.ElementView
+      android:id="@+id/element_4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="@id/element_3"
+      app:layout_constraintTop_toBottomOf="@id/element_3" />
+
+  <CheckBox
+      android:id="@+id/check_5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/element_5" />
+  <com.teratail.q_3mipiypmm6w99c.ElementView
+      android:id="@+id/element_5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="@id/element_4"
+      app:layout_constraintTop_toBottomOf="@id/element_4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
