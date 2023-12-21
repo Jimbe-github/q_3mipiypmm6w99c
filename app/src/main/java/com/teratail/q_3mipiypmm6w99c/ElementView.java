@@ -48,14 +48,12 @@ public class ElementView extends ConstraintLayout {
 
   void set(Grades.Type type, Grades.Element element) {
     validCheck.setChecked(element.valid);
-    typeText.setText(type.toString());
+    typeText.setText(type.getLocalizedText(getContext()));
     weightEdit.setText(String.valueOf(element.weight));
     achievedEdit.setText(String.valueOf(element.achieved));
   }
 
-  void setChangeListener(Consumer<ElementView> l) {
-    changeListener = l;
-  }
+  void setChangeListener(Consumer<ElementView> l) { changeListener = l; }
 
   Grades.Element getElement() { return new Grades.Element(valid, weight, achieved); }
 

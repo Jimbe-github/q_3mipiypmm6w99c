@@ -1,10 +1,20 @@
 <resources>
   <string name="app_name">q_3mipiypmm6w99c</string>
 
+  <string name="grades_type_alpha">Alpha</string>
+  <string name="grades_type_beta">Beta</string>
+  <string name="grades_type_camma">Camma</string>
+  <string name="grades_type_delta">Delta</string>
+  <string name="grades_type_epsilon">Epsilon</string>
+
   <string name="subject_edit_label">Subject:</string>
   <string name="weight_edit_label">Weight:</string>
   <string name="achieved_edit_label">Achieved:</string>
+
   <string name="item_dialog_title">Grades</string>
   <string name="item_dialog_positive_button">OK</string>
   <string name="item_dialog_negative_button">Cancel</string>
+  <string name="item_dialog_total_label">Total:</string>
+  <string name="item_dialog_total_weight_label">Weight</string>
+  <string name="item_dialog_total_achieved_label">Achieved</string>
 </resources>

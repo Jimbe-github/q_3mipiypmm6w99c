@@ -45,7 +45,8 @@
       android:minHeight="48dp"
       android:selectAllOnFocus="true"
       app:layout_constraintStart_toEndOf="@id/weight_label"
-      app:layout_constraintTop_toBottomOf="@id/type_text" />
+      app:layout_constraintTop_toBottomOf="@id/type_text"
+      tools:text="100" />
 
   <TextView
       android:id="@+id/achieved_label"
@@ -69,5 +70,6 @@
       android:minHeight="48dp"
       android:selectAllOnFocus="true"
       app:layout_constraintStart_toEndOf="@id/achieved_label"
-      app:layout_constraintTop_toTopOf="@id/weight_edit" />
+      app:layout_constraintTop_toTopOf="@id/weight_edit"
+      tools:text="100" />
 </merge>

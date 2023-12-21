@@ -1,0 +1,20 @@
+<resources>
+  <string name="app_name">q_3mipiypmm6w99c</string>
+
+  <string name="grades_type_alpha">課題</string>
+  <string name="grades_type_beta">小テスト</string>
+  <string name="grades_type_camma">中間テスト</string>
+  <string name="grades_type_delta">期末テスト</string>
+  <string name="grades_type_epsilon">その他</string>
+
+  <string name="subject_edit_label">科目名:</string>
+  <string name="weight_edit_label">割合(%):</string>
+  <string name="achieved_edit_label">達成度(%):</string>
+
+  <string name="item_dialog_title">成績</string>
+  <string name="item_dialog_positive_button">登録</string>
+  <string name="item_dialog_negative_button">キャンセル</string>
+  <string name="item_dialog_total_label">合計:</string>
+  <string name="item_dialog_total_weight_label">割合</string>
+  <string name="item_dialog_total_achieved_label">達成度</string>
+</resources>

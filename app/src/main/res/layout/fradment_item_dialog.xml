@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:importantForAutofill="noExcludeDescendants"
@@ -29,7 +30,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="10dp"
-      android:background="#f0f0ff"
+      android:background="#f8f8ff"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/subject_edit" />
@@ -38,7 +39,7 @@
       android:id="@+id/element_2"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:background="#f0fff0"
+      android:background="#f8fff8"
       app:layout_constraintEnd_toEndOf="@id/element_1"
       app:layout_constraintStart_toStartOf="@id/element_1"
       app:layout_constraintTop_toBottomOf="@id/element_1" />
@@ -47,7 +48,7 @@
       android:id="@+id/element_3"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:background="#f0ffff"
+      android:background="#f8ffff"
       app:layout_constraintEnd_toEndOf="@id/element_2"
       app:layout_constraintStart_toStartOf="@id/element_2"
       app:layout_constraintTop_toBottomOf="@id/element_2" />
@@ -56,7 +57,7 @@
       android:id="@+id/element_4"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:background="#fff0f0"
+      android:background="#fff8f8"
       app:layout_constraintEnd_toEndOf="@id/element_3"
       app:layout_constraintStart_toStartOf="@id/element_3"
       app:layout_constraintTop_toBottomOf="@id/element_3" />
@@ -65,9 +66,59 @@
       android:id="@+id/element_5"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:background="#f0f0f0"
+      android:background="#f8f8f8"
       app:layout_constraintEnd_toEndOf="@id/element_4"
       app:layout_constraintStart_toStartOf="@id/element_4"
       app:layout_constraintTop_toBottomOf="@id/element_4" />
+
+  <TextView
+      android:id="@+id/total_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/item_dialog_total_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
+      app:layout_constraintEnd_toStartOf="@id/total_weight_label"
+      app:layout_constraintHorizontal_bias="0.8"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent" />
+  <TextView
+      android:id="@+id/total_weight_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:text="@string/item_dialog_total_weight_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
+      app:layout_constraintEnd_toStartOf="@id/total_weight_text"
+      app:layout_constraintStart_toEndOf="@id/total_label" />
+  <TextView
+      android:id="@+id/total_weight_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="4dp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toStartOf="@id/total_achieved_label"
+      app:layout_constraintStart_toEndOf="@id/total_weight_label"
+      app:layout_constraintTop_toBottomOf="@id/element_5"
+      tools:text="100%" />
+  <TextView
+      android:id="@+id/total_achieved_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:text="@string/item_dialog_total_achieved_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_achieved_text"
+      app:layout_constraintEnd_toStartOf="@id/total_achieved_text"
+      app:layout_constraintStart_toEndOf="@id/total_weight_text" />
+  <TextView
+      android:id="@+id/total_achieved_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/total_achieved_label"
+      app:layout_constraintTop_toTopOf="@id/total_weight_text"
+      tools:text="100.0%" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

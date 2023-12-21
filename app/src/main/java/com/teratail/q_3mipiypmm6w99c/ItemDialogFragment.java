@@ -56,12 +56,28 @@ public class ItemDialogFragment extends DialogFragment {
       }
     });
 
+    class TotalViews {
+      TextView totalWeightText = view.findViewById(R.id.total_weight_text);
+      TextView totalAchievedText = view.findViewById(R.id.total_achieved_text);
+      TotalViews() {
+        setGrades(grades);
+      }
+      void setGrades(Grades grades) {
+        totalWeightText.setText(String.format("%d%%", grades.getWeight()));
+        totalAchievedText.setText(String.format("%.1f%%", grades.getPercentage()));
+      }
+    }
+    TotalViews totalViews = new TotalViews();
+
     @IdRes int[] ids = new int[] { R.id.element_1, R.id.element_2, R.id.element_3, R.id.element_4, R.id.element_5 };
     for(int i=0; i<5; i++) {
       Grades.Type type = Grades.Type.values()[i];
       ElementView elementView = view.findViewById(ids[i]);
       elementView.set(type, grades.getElement(type));
-      elementView.setChangeListener(v -> grades.setElement(type, v.getElement()));
+      elementView.setChangeListener(v -> {
+        grades.setElement(type, v.getElement());
+        totalViews.setGrades(grades);
+      });
     }
 
     return new AlertDialog.Builder(requireContext())
