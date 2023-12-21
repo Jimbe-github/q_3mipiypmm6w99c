@@ -48,9 +48,9 @@ public class ElementView extends ConstraintLayout {
 
   void set(Grades.Type type, Grades.Element element) {
     validCheck.setChecked(element.valid);
-    typeText.setText("" + type);
-    weightEdit.setText("" + element.weight);
-    achievedEdit.setText("" + element.achieved);
+    typeText.setText(type.toString());
+    weightEdit.setText(String.valueOf(element.weight));
+    achievedEdit.setText(String.valueOf(element.achieved));
   }
 
   void setChangeListener(Consumer<ElementView> l) {
@@ -66,7 +66,7 @@ public class ElementView extends ConstraintLayout {
   @Override
   public void setEnabled(boolean enabled) {
     super.setEnabled(enabled);
-    //setEdiable が非推奨なのでフォーカスが行かないようにすることで代用(?)
+    //setEditable が非推奨なのでフォーカスが行かないようにすることで代用(?)
     weightEdit.setFocusable(enabled);
     weightEdit.setFocusableInTouchMode(enabled);
     achievedEdit.setFocusable(enabled);
