@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+  <TextView
+      android:id="@+id/total_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/item_dialog_total_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
+      app:layout_constraintStart_toStartOf="parent" />
+  <TextView
+      android:id="@+id/total_weight_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:text="@string/item_dialog_total_weight_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
+      app:layout_constraintStart_toEndOf="@id/total_label" />
+  <TextView
+      android:id="@+id/total_weight_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/total_weight_label"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="100%" />
+  <TextView
+      android:id="@+id/total_achieved_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:text="@string/item_dialog_total_achieved_label"
+      app:layout_constraintBaseline_toBaselineOf="@id/total_achieved_text"
+      app:layout_constraintStart_toEndOf="@id/total_weight_text" />
+  <TextView
+      android:id="@+id/total_achieved_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@id/total_achieved_label"
+      app:layout_constraintTop_toTopOf="@id/total_weight_text"
+      tools:text="100.0%" />
+
+</merge>

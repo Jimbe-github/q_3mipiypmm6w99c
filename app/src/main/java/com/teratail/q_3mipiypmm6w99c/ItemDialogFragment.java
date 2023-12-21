@@ -56,18 +56,8 @@ public class ItemDialogFragment extends DialogFragment {
       }
     });
 
-    class TotalViews {
-      TextView totalWeightText = view.findViewById(R.id.total_weight_text);
-      TextView totalAchievedText = view.findViewById(R.id.total_achieved_text);
-      TotalViews() {
-        setGrades(grades);
-      }
-      void setGrades(Grades grades) {
-        totalWeightText.setText(String.format("%d%%", grades.getWeight()));
-        totalAchievedText.setText(String.format("%.1f%%", grades.getPercentage()));
-      }
-    }
-    TotalViews totalViews = new TotalViews();
+    GradesTotalView totalView = view.findViewById(R.id.grades_total_view);
+    totalView.set(grades);
 
     @IdRes int[] ids = new int[] { R.id.element_1, R.id.element_2, R.id.element_3, R.id.element_4, R.id.element_5 };
     for(int i=0; i<5; i++) {
@@ -76,7 +66,7 @@ public class ItemDialogFragment extends DialogFragment {
       elementView.set(type, grades.getElement(type));
       elementView.setChangeListener(v -> {
         grades.setElement(type, v.getElement());
-        totalViews.setGrades(grades);
+        totalView.set(grades);
       });
     }
 

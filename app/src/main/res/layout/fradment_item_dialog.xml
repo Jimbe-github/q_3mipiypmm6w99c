@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:importantForAutofill="noExcludeDescendants"
@@ -71,54 +70,14 @@
       app:layout_constraintStart_toStartOf="@id/element_4"
       app:layout_constraintTop_toBottomOf="@id/element_4" />
 
-  <TextView
-      android:id="@+id/total_label"
+  <com.teratail.q_3mipiypmm6w99c.GradesTotalView
+      android:id="@+id/grades_total_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/item_dialog_total_label"
-      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
-      app:layout_constraintEnd_toStartOf="@id/total_weight_label"
-      app:layout_constraintHorizontal_bias="0.8"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintStart_toStartOf="parent" />
-  <TextView
-      android:id="@+id/total_weight_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="6dp"
-      android:text="@string/item_dialog_total_weight_label"
-      app:layout_constraintBaseline_toBaselineOf="@id/total_weight_text"
-      app:layout_constraintEnd_toStartOf="@id/total_weight_text"
-      app:layout_constraintStart_toEndOf="@id/total_label" />
-  <TextView
-      android:id="@+id/total_weight_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="4dp"
-      android:layout_marginTop="4dp"
-      android:textStyle="bold"
-      app:layout_constraintEnd_toStartOf="@id/total_achieved_label"
-      app:layout_constraintStart_toEndOf="@id/total_weight_label"
-      app:layout_constraintTop_toBottomOf="@id/element_5"
-      tools:text="100%" />
-  <TextView
-      android:id="@+id/total_achieved_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="6dp"
-      android:text="@string/item_dialog_total_achieved_label"
-      app:layout_constraintBaseline_toBaselineOf="@id/total_achieved_text"
-      app:layout_constraintEnd_toStartOf="@id/total_achieved_text"
-      app:layout_constraintStart_toEndOf="@id/total_weight_text" />
-  <TextView
-      android:id="@+id/total_achieved_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="4dp"
-      android:textStyle="bold"
+      android:layout_marginTop="8dp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/total_achieved_label"
-      app:layout_constraintTop_toTopOf="@id/total_weight_text"
-      tools:text="100.0%" />
+      app:layout_constraintHorizontal_bias="0.8"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/element_5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

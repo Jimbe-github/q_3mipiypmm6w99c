@@ -88,20 +88,21 @@ public class ListFragment extends Fragment {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-      private final TextView text1, text2;
+      private final TextView subjectsText;
+      private final GradesTotalView gradesTotalView;
       private Grades grades;
       ViewHolder(@NonNull ViewGroup parent) {
-        super(LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false));
+        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row, parent, false));
         itemView.setOnClickListener(v -> {
           if(rowClickListener != null) rowClickListener.accept(getAdapterPosition(), grades);
         });
-        text1 = itemView.findViewById(android.R.id.text1);
-        text2 = itemView.findViewById(android.R.id.text2);
+        subjectsText = itemView.findViewById(R.id.subjects_text);
+        gradesTotalView = itemView.findViewById(R.id.grades_total_view);
       }
       void bind(Grades grades) {
         this.grades = grades;
-        text1.setText(grades.subjectName);
-        text2.setText(grades.getPercentage() + " %");
+        subjectsText.setText(grades.subjectName);
+        gradesTotalView.set(grades);
       }
     }
   }
