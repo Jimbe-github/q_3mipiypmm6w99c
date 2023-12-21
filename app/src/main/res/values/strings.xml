@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">q_3mipiypmm6w99c</string>
+
+  <string name="subject_edit_label">Subject:</string>
+  <string name="weight_edit_label">Weight:</string>
+  <string name="achieved_edit_label">Achieved:</string>
+</resources>
