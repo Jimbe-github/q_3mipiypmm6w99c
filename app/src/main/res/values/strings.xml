@@ -4,4 +4,7 @@
   <string name="subject_edit_label">Subject:</string>
   <string name="weight_edit_label">Weight:</string>
   <string name="achieved_edit_label">Achieved:</string>
+  <string name="item_dialog_title">Grades</string>
+  <string name="item_dialog_positive_button">OK</string>
+  <string name="item_dialog_negative_button">Cancel</string>
 </resources>

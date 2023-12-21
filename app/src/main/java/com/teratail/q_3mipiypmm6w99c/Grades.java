@@ -43,19 +43,11 @@ class Grades implements Serializable { //成績
   }
 
   Element getElement(Type type) {
-    return new Element(elementSet.get(type));
-  } //防御コピー
-
-  void setElementValid(Type type, boolean valid) {
-    elementSet.get(type).valid = valid;
+    return new Element(elementSet.get(type)); //防御コピー
   }
 
-  void setElementWeight(Type type, int weight) {
-    elementSet.get(type).weight = weight;
-  }
-
-  void setElementAchieved(Type type, int achieved) {
-    elementSet.get(type).achieved = achieved;
+  void setElement(Type type, Element element) {
+    elementSet.put(type, new Element(element)); //防御コピー
   }
 
   //達成割合

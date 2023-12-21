@@ -7,12 +7,19 @@
     android:importantForAutofill="noExcludeDescendants"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+  <CheckBox
+      android:id="@+id/valid_check"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
   <TextView
       android:id="@+id/type_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:duplicateParentState="true"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintStart_toEndOf="@id/valid_check"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="type name" />
 

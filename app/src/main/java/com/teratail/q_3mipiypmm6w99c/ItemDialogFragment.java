@@ -56,43 +56,24 @@ public class ItemDialogFragment extends DialogFragment {
       }
     });
 
-    Grades.Type[] types = Grades.Type.values();
-    setElementView(view, R.id.check_1, R.id.element_1, types[0]);
-    setElementView(view, R.id.check_2, R.id.element_2, types[1]);
-    setElementView(view, R.id.check_3, R.id.element_3, types[2]);
-    setElementView(view, R.id.check_4, R.id.element_4, types[3]);
-    setElementView(view, R.id.check_5, R.id.element_5, types[4]);
+    @IdRes int[] ids = new int[] { R.id.element_1, R.id.element_2, R.id.element_3, R.id.element_4, R.id.element_5 };
+    for(int i=0; i<5; i++) {
+      Grades.Type type = Grades.Type.values()[i];
+      ElementView elementView = view.findViewById(ids[i]);
+      elementView.set(type, grades.getElement(type));
+      elementView.setChangeListener(v -> grades.setElement(type, v.getElement()));
+    }
 
     return new AlertDialog.Builder(requireContext())
-            .setTitle("成績")
+            .setTitle(R.string.item_dialog_title)
             .setView(view)
-            .setPositiveButton("OK", (v,w) -> {
+            .setPositiveButton(R.string.item_dialog_positive_button, (v, w) -> {
               Bundle result = new Bundle();
               result.putInt(RESULT_KEY_POSITION, position);
               result.putSerializable(RESULT_KEY_GRADES, grades);
               getParentFragmentManager().setFragmentResult(requestKey, result);
             })
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(R.string.item_dialog_negative_button, null)
             .create();
-  }
-
-  void setElementView(View view, @IdRes int checkId, @IdRes int elementId, Grades.Type type) {
-    Grades.Element e = grades.getElement(type);
-
-    CheckBox check = view.findViewById(checkId);
-    check.setChecked(e.valid);
-
-    ElementView elementView = view.findViewById(elementId);
-    elementView.set(type, e);
-    elementView.setEnabled(e.valid);
-    elementView.setChangeListener(v -> {
-      grades.setElementWeight(type, v.getWeight());
-      grades.setElementAchieved(type, v.getAchieved());
-    });
-
-    check.setOnCheckedChangeListener((v,b) -> {
-      grades.setElementValid(type, b);
-      elementView.setEnabled(b);
-    });
   }
 }
