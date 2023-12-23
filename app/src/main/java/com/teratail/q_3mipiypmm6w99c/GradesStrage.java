@@ -19,14 +19,14 @@ interface GradesStrage {
 class SQLiteGradesStrage implements GradesStrage {
   private static final String LOG_TAG = "SQLiteGradesStrage";
 
-  private static String GRADES_TABLE = "grades";
-  private static String GRADES_COLUMN_SUBJECT = "subject";
-  private static String ELEMENTS_TABLE = "elements";
-  private static String ELEMENTS_COLUMN_GRADES_ID = "grade_id";
-  private static String ELEMENTS_COLUMN_TYPE = "type";
-  private static String ELEMENTS_COLUMN_VALID = "valid";
-  private static String ELEMENTS_COLUMN_WEIGHT = "weight";
-  private static String ELEMENTS_COLUMN_ACHIEVED = "achieved";
+  private static final String GRADES_TABLE = "grades";
+  private static final String GRADES_COLUMN_SUBJECT = "subject";
+  private static final String ELEMENTS_TABLE = "elements";
+  private static final String ELEMENTS_COLUMN_GRADES_ID = "grade_id";
+  private static final String ELEMENTS_COLUMN_TYPE = "type";
+  private static final String ELEMENTS_COLUMN_VALID = "valid";
+  private static final String ELEMENTS_COLUMN_WEIGHT = "weight";
+  private static final String ELEMENTS_COLUMN_ACHIEVED = "achieved";
 
   private static DBOpenHelper helper; //シングルトン
 
@@ -90,7 +90,7 @@ class SQLiteGradesStrage implements GradesStrage {
         try(Cursor ecur = db.query(ELEMENTS_TABLE,
                 new String[]{ELEMENTS_COLUMN_TYPE, ELEMENTS_COLUMN_VALID, ELEMENTS_COLUMN_WEIGHT, ELEMENTS_COLUMN_ACHIEVED},
                 ELEMENTS_COLUMN_GRADES_ID + "=?", //selection
-                new String[]{"" + gradesid}, //selectionArgs
+                new String[]{String.valueOf(gradesid)}, //selectionArgs
                 null, null, null)) {
           int typeIndex = ecur.getColumnIndex(ELEMENTS_COLUMN_TYPE);
           int validIndex = ecur.getColumnIndex(ELEMENTS_COLUMN_VALID);
@@ -161,7 +161,7 @@ class SharedPreferencesGradesStrage implements GradesStrage {
   private final SharedPreferences preferences;
 
   SharedPreferencesGradesStrage(Context context) {
-    this.preferences = context.getSharedPreferences(null, Context.MODE_PRIVATE);
+    this.preferences = context.getSharedPreferences("grades", Context.MODE_PRIVATE);
   }
 
   @Override
@@ -173,16 +173,16 @@ class SharedPreferencesGradesStrage implements GradesStrage {
     for (int i=0; i<list.size(); i++) {
       Grades grades = list.get(i);
 
-      editor.putString(String.format(PREF_KEY_GRADES_SUBJECT_FORMAT, i), grades.subjectName);
+      editor.putString(String.format(Locale.getDefault(), PREF_KEY_GRADES_SUBJECT_FORMAT, i), grades.subjectName);
 
       StringJoiner sj = new StringJoiner(SEPARATOR);
       for (Grades.Type type : Grades.Type.values()) {
         Grades.Element element = grades.getElement(type);
-        sj.add(element.valid ? "1" : "");
-        sj.add("" + element.weight);
-        sj.add("" + element.achieved);
+        sj.add(String.valueOf(element.valid));
+        sj.add(String.valueOf(element.weight));
+        sj.add(String.valueOf(element.achieved));
       }
-      editor.putString(String.format(PREF_KEY_ELEMENTS_FORMAT, i), sj.toString());
+      editor.putString(String.format(Locale.getDefault(), PREF_KEY_ELEMENTS_FORMAT, i), sj.toString());
     }
 
     editor.apply();
@@ -195,18 +195,18 @@ class SharedPreferencesGradesStrage implements GradesStrage {
     int size = preferences.getInt(PREF_KEY_SIZE, 0);
 
     for (int i=0; i<size; i++) {
-      String subject = preferences.getString(String.format(PREF_KEY_GRADES_SUBJECT_FORMAT, i), "");
+      String subject = preferences.getString(String.format(Locale.getDefault(), PREF_KEY_GRADES_SUBJECT_FORMAT, i), "");
 
       Grades grades = new Grades(subject);
 
-      String str = preferences.getString(String.format(PREF_KEY_ELEMENTS_FORMAT, i), null);
+      String str = preferences.getString(String.format(Locale.getDefault(), PREF_KEY_ELEMENTS_FORMAT, i), null);
       if(str == null) break;
 
       String[] tokens = str.split(SEPARATOR);
       int j = 0;
       for (Grades.Type type : Grades.Type.values()) {
         Grades.Element element = grades.getElement(type);
-        element.valid = tokens[j++].equals("1");
+        element.valid = Boolean.parseBoolean(tokens[j++]);
         element.weight = Integer.parseInt(tokens[j++]);
         element.achieved = Integer.parseInt(tokens[j++]);
         grades.setElement(type, element);

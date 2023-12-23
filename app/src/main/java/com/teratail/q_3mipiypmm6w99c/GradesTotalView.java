@@ -8,6 +8,8 @@ import android.widget.*;
 import androidx.annotation.*;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Locale;
+
 public class GradesTotalView extends ConstraintLayout {
   private final TextView weightText, achievedText;
 
@@ -26,7 +28,7 @@ public class GradesTotalView extends ConstraintLayout {
   }
 
   void set(Grades grades) {
-    weightText.setText(String.format("%d%%", grades.getWeight()));
-    achievedText.setText(String.format("%.1f%%", grades.getPercentage()));
+    weightText.setText(String.format(Locale.getDefault(), "%d%%", grades.getWeight()));
+    achievedText.setText(String.format(Locale.getDefault(), "%.1f%%", grades.getPercentage()));
   }
 }

@@ -1,7 +1,6 @@
 package com.teratail.q_3mipiypmm6w99c;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import androidx.annotation.*;
 
@@ -12,12 +11,19 @@ import java.util.*;
 class Grades implements Serializable {
   //要素の種類
   enum Type {
-    ALPHA, BETA, CAMMA, DELTA, EPSILON; //とりあえずテキトー
+    //とりあえずテキトー
+    ALPHA(R.string.grades_type_alpha),
+    BETA(R.string.grades_type_beta),
+    CAMMA(R.string.grades_type_camma),
+    DELTA(R.string.grades_type_delta),
+    EPSILON(R.string.grades_type_epsilon);
 
+    private final @StringRes int textId;
+    Type(@StringRes int textId) {
+      this.textId = textId;
+    }
     String getLocalizedText(Context context) {
-      Resources res = context.getResources();
-      @StringRes int id = res.getIdentifier("grades_type_" + name().toLowerCase(), "string", context.getPackageName());
-      return id == 0 ? name() : res.getString(id);
+      return context.getString(textId);
     }
   }
 
@@ -31,8 +37,10 @@ class Grades implements Serializable {
       this(false, 0, 0);
     }
     //copy
-    Element(Element org) {
-      this(org.valid, org.weight, org.achieved);
+    Element(@Nullable Element org) {
+      this(org != null && org.valid,
+           org == null ? 0 : org.weight,
+           org == null ? 0 : org.achieved);
     }
 
     Element(boolean valid, int weight, int achieved) {
@@ -46,7 +54,7 @@ class Grades implements Serializable {
   }
 
   String subjectName; //科目名
-  private Map<Type, Element> elementSet = new EnumMap<>(Type.class); //成績データ
+  private final Map<Type, Element> elementSet = new EnumMap<>(Type.class); //成績データ
 
   Grades() {
     this("");

@@ -1,5 +1,6 @@
 package com.teratail.q_3mipiypmm6w99c;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -24,11 +25,13 @@ public class ListFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    Adapter adapter = new Adapter();
+
     //どちらか選択
     GradesStrage gradesStrage = new SQLiteGradesStrage(requireContext());
     //GradesStrage gradesStrage = new SharedPreferencesGradesStrage(requireContext());
 
-    Adapter adapter = new Adapter(gradesStrage.load());
+    adapter.setList(gradesStrage.load());
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override
       public void onChanged() { gradesStrage.save(adapter.getList()); }
@@ -71,15 +74,8 @@ public class ListFragment extends Fragment {
   }
 
   private static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    private final List<Grades> list;
+    private final List<Grades> list = new ArrayList<>();
     private BiConsumer<Integer,Grades> rowClickListener;
-
-    Adapter() {
-      this(new ArrayList<>());
-    }
-    Adapter(List<Grades> list) {
-      this.list = new ArrayList<>(list); //防御コピー
-    }
 
     void setRowClickListener(BiConsumer<Integer,Grades> l) {
       rowClickListener = l;
@@ -94,6 +90,12 @@ public class ListFragment extends Fragment {
       notifyItemChanged(position);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    void setList(List<Grades> newList) {
+      list.clear();
+      list.addAll(newList); //防御コピー
+      notifyDataSetChanged();
+    }
     List<Grades> getList() {
       return new ArrayList<>(list); //防御コピー
     }
