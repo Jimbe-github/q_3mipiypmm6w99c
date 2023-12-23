@@ -24,7 +24,23 @@ public class ListFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    Adapter adapter = new Adapter();
+    //どちらか選択
+    GradesStrage gradesStrage = new SQLiteGradesStrage(requireContext());
+    //GradesStrage gradesStrage = new SharedPreferencesGradesStrage(requireContext());
+
+    Adapter adapter = new Adapter(gradesStrage.load());
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override
+      public void onChanged() { gradesStrage.save(adapter.getList()); }
+      @Override
+      public void onItemRangeChanged(int positionStart, int itemCount) { onChanged(); }
+      @Override
+      public void onItemRangeInserted(int positionStart, int itemCount) { onChanged(); }
+      @Override
+      public void onItemRangeRemoved(int positionStart, int itemCount) { onChanged(); }
+      @Override
+      public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) { onChanged(); }
+    });
 
     RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
     recyclerView.setAdapter(adapter);
@@ -55,8 +71,15 @@ public class ListFragment extends Fragment {
   }
 
   private static class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    private final List<Grades> list = new ArrayList<>();
+    private final List<Grades> list;
     private BiConsumer<Integer,Grades> rowClickListener;
+
+    Adapter() {
+      this(new ArrayList<>());
+    }
+    Adapter(List<Grades> list) {
+      this.list = new ArrayList<>(list); //防御コピー
+    }
 
     void setRowClickListener(BiConsumer<Integer,Grades> l) {
       rowClickListener = l;
@@ -69,6 +92,10 @@ public class ListFragment extends Fragment {
     void set(int position, Grades grades) {
       list.set(position, grades);
       notifyItemChanged(position);
+    }
+
+    List<Grades> getList() {
+      return new ArrayList<>(list); //防御コピー
     }
 
     @NonNull

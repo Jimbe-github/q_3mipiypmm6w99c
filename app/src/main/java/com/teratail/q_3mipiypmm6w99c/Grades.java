@@ -49,6 +49,10 @@ class Grades implements Serializable {
   private Map<Type, Element> elementSet = new EnumMap<>(Type.class); //成績データ
 
   Grades() {
+    this("");
+  }
+  Grades(String subject) {
+    this.subjectName = subject;
     for(Type type : Type.values())
       elementSet.put(type, new Element());
   }
