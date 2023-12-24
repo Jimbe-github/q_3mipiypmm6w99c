@@ -36,8 +36,7 @@ public class ListFragment extends Fragment {
       getLifecycle().addObserver((LifecycleObserver) gradesStorage);
     }
 
-    LiveData<List<Grades>> gradesListLiveData = gradesStorage.load();
-    gradesListLiveData.observe(getViewLifecycleOwner(), adapter::setList);
+    gradesStorage.load().observe(getViewLifecycleOwner(), adapter::setList);
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override
       public void onChanged() { gradesStorage.save(adapter.getList()); }
