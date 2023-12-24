@@ -17,7 +17,6 @@ interface GradesStorage {
   LiveData<List<Grades>> load();
 }
 
-//本来ならDBアクセスはバックグラウンドで行う
 class SQLiteGradesStorage implements GradesStorage, DefaultLifecycleObserver {
   private static final String LOG_TAG = "SQLiteGradesStorage";
 
@@ -44,6 +43,10 @@ class SQLiteGradesStorage implements GradesStorage, DefaultLifecycleObserver {
 
   @Override
   public void save(List<Grades> list) {
+    executor.execute(() -> saveImmediately(list));
+  }
+
+  private void saveImmediately(List<Grades> list) {
     SQLiteDatabase db = helper.getWritableDatabase(); //closeしないこと
     db.beginTransaction();
     try {

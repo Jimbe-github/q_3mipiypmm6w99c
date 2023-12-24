@@ -29,8 +29,8 @@ public class ListFragment extends Fragment {
     Adapter adapter = new Adapter();
 
     //どちらか選択
-    //GradesStrage gradesStrage = new SQLiteGradesStrage(requireContext());
-    GradesStorage gradesStorage = new SharedPreferencesGradesStorage(requireContext());
+    GradesStorage gradesStorage = new SQLiteGradesStorage(requireContext());
+    //GradesStorage gradesStorage = new SharedPreferencesGradesStorage(requireContext());
 
     if(gradesStorage instanceof LifecycleObserver) {
       getLifecycle().addObserver((LifecycleObserver) gradesStorage);
