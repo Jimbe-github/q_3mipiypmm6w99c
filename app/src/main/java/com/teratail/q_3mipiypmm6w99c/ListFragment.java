@@ -8,6 +8,7 @@ import android.widget.*;
 
 import androidx.annotation.*;
 import androidx.fragment.app.*;
+import androidx.lifecycle.*;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.*;
@@ -28,13 +29,18 @@ public class ListFragment extends Fragment {
     Adapter adapter = new Adapter();
 
     //どちらか選択
-    GradesStrage gradesStrage = new SQLiteGradesStrage(requireContext());
-    //GradesStrage gradesStrage = new SharedPreferencesGradesStrage(requireContext());
+    //GradesStrage gradesStrage = new SQLiteGradesStrage(requireContext());
+    GradesStorage gradesStorage = new SharedPreferencesGradesStorage(requireContext());
 
-    adapter.setList(gradesStrage.load());
+    if(gradesStorage instanceof LifecycleObserver) {
+      getLifecycle().addObserver((LifecycleObserver) gradesStorage);
+    }
+
+    LiveData<List<Grades>> gradesListLiveData = gradesStorage.load();
+    gradesListLiveData.observe(getViewLifecycleOwner(), adapter::setList);
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override
-      public void onChanged() { gradesStrage.save(adapter.getList()); }
+      public void onChanged() { gradesStorage.save(adapter.getList()); }
       @Override
       public void onItemRangeChanged(int positionStart, int itemCount) { onChanged(); }
       @Override

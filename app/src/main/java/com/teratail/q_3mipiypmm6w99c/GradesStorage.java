@@ -6,18 +6,20 @@ import android.database.sqlite.*;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.*;
+import androidx.lifecycle.*;
 
 import java.util.*;
+import java.util.concurrent.*;
 
-interface GradesStrage {
+interface GradesStorage {
   void save(List<Grades> list);
-  List<Grades> load();
+  LiveData<List<Grades>> load();
 }
 
 //本来ならDBアクセスはバックグラウンドで行う
-class SQLiteGradesStrage implements GradesStrage {
-  private static final String LOG_TAG = "SQLiteGradesStrage";
+class SQLiteGradesStorage implements GradesStorage, DefaultLifecycleObserver {
+  private static final String LOG_TAG = "SQLiteGradesStorage";
 
   private static final String GRADES_TABLE = "grades";
   private static final String GRADES_COLUMN_SUBJECT = "subject";
@@ -29,9 +31,15 @@ class SQLiteGradesStrage implements GradesStrage {
   private static final String ELEMENTS_COLUMN_ACHIEVED = "achieved";
 
   private static DBOpenHelper helper; //シングルトン
+  private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-  SQLiteGradesStrage(Context context) {
+  SQLiteGradesStorage(Context context) {
     if(helper == null) helper = new DBOpenHelper(context);
+  }
+
+  @Override
+  public void onDestroy(@NonNull LifecycleOwner owner) {
+    executor.shutdownNow();
   }
 
   @Override
@@ -68,7 +76,13 @@ class SQLiteGradesStrage implements GradesStrage {
   }
 
   @Override
-  public List<Grades> load() {
+  public LiveData<List<Grades>> load() {
+    MutableLiveData<List<Grades>> gradesListLiveData = new MutableLiveData<>(Collections.emptyList());
+    executor.execute(() -> gradesListLiveData.postValue(loadImmediately()));
+    return gradesListLiveData;
+  }
+
+  private List<Grades> loadImmediately() {
     List<Grades> list = new ArrayList<>();
 
     SQLiteDatabase db = helper.getReadableDatabase(); //closeしないこと
@@ -81,16 +95,16 @@ class SQLiteGradesStrage implements GradesStrage {
       int idIndex = gcur.getColumnIndex(BaseColumns._ID);
       int subjectIndex = gcur.getColumnIndex(GRADES_COLUMN_SUBJECT);
       while(gcur.moveToNext()) {
-        long gradesid = gcur.getLong(idIndex);
+        long gradeId = gcur.getLong(idIndex);
         String subject = gcur.getString(subjectIndex);
-        Log.d(LOG_TAG, "gradesid=" + gradesid + ", subject=" + subject);
+        Log.d(LOG_TAG, "gradeId=" + gradeId + ", subject=" + subject);
 
         Grades grades = new Grades(subject);
 
         try(Cursor ecur = db.query(ELEMENTS_TABLE,
                 new String[]{ELEMENTS_COLUMN_TYPE, ELEMENTS_COLUMN_VALID, ELEMENTS_COLUMN_WEIGHT, ELEMENTS_COLUMN_ACHIEVED},
                 ELEMENTS_COLUMN_GRADES_ID + "=?", //selection
-                new String[]{String.valueOf(gradesid)}, //selectionArgs
+                new String[]{String.valueOf(gradeId)}, //selectionArgs
                 null, null, null)) {
           int typeIndex = ecur.getColumnIndex(ELEMENTS_COLUMN_TYPE);
           int validIndex = ecur.getColumnIndex(ELEMENTS_COLUMN_VALID);
@@ -152,7 +166,7 @@ class SQLiteGradesStrage implements GradesStrage {
   }
 }
 
-class SharedPreferencesGradesStrage implements GradesStrage {
+class SharedPreferencesGradesStorage implements GradesStorage {
   private static final String PREF_KEY_SIZE = "grades_size";
   private static final String PREF_KEY_GRADES_SUBJECT_FORMAT = "grades_%d_name";
   private static final String PREF_KEY_ELEMENTS_FORMAT = "grades_%d_elements";
@@ -160,7 +174,7 @@ class SharedPreferencesGradesStrage implements GradesStrage {
 
   private final SharedPreferences preferences;
 
-  SharedPreferencesGradesStrage(Context context) {
+  SharedPreferencesGradesStorage(Context context) {
     this.preferences = context.getSharedPreferences("grades", Context.MODE_PRIVATE);
   }
 
@@ -189,7 +203,7 @@ class SharedPreferencesGradesStrage implements GradesStrage {
   }
 
   @Override
-  public List<Grades> load() {
+  public LiveData<List<Grades>> load() {
     List<Grades> list = new ArrayList<>();
 
     int size = preferences.getInt(PREF_KEY_SIZE, 0);
@@ -215,6 +229,6 @@ class SharedPreferencesGradesStrage implements GradesStrage {
       list.add(grades);
     }
 
-    return list;
+    return new MutableLiveData<>(list);
   }
 }
